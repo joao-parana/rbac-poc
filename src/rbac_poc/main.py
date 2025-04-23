@@ -3,10 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from rbac_poc.models import User, GroupPermissions, UpdatePermissionsRequest, UserGroupEnum, ProfileEnum
 from rbac_poc.database import PERMISSIONS_DB, USERS_DB
 from typing import List
+from collections.abc import Callable
 
 _dummy_ = [ProfileEnum]
 
 class RbacPoc():
+
     def __init__(self, app: FastAPI):
         self.app: FastAPI = app
         self.app.add_middleware(
@@ -17,6 +19,7 @@ class RbacPoc():
         )
 
     def define_rest_api_endpoints(self):
+        _endpoint_methods: list[Callable] = {list_all_permissions,get_permissions, update_user, update_permissions, create_user, list_users, check_edit_permission}
         print("==== define_rest_api_endpoints", flush=True)
         # --- Endpoints de Permissões ---
         @self.app.get("/permissions/", response_model=List[GroupPermissions])
@@ -29,6 +32,11 @@ class RbacPoc():
                 raise HTTPException(status_code=404, detail="Group not found")
             return PERMISSIONS_DB[group_name]
 
+        @self.app.put("/users/{user_id}")
+        async def update_user(user_id: int, user: User):
+            # Lógica para atualizar o usuário no banco de dados
+            # ...
+            return {"message": "Usuário atualizado com sucesso"}
         @self.app.put("/permissions/{group_name}")
         def update_permissions(group_name: UserGroupEnum, request: UpdatePermissionsRequest):
             if group_name not in PERMISSIONS_DB:
