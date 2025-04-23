@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from rbac_poc.models import User, GroupPermissions, UpdatePermissionsRequest, UserGroupEnum, ProfileEnum
 from rbac_poc.database import PERMISSIONS_DB, USERS_DB
 from typing import List
@@ -8,6 +9,12 @@ _dummy_ = [ProfileEnum]
 class RbacPoc():
     def __init__(self, app: FastAPI):
         self.app: FastAPI = app
+        self.app.add_middleware(
+            CORSMiddleware,
+            allow_origins=["http://localhost:5173"],
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
 
     def define_rest_api_endpoints(self):
         print("==== define_rest_api_endpoints", flush=True)
