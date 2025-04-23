@@ -1,0 +1,83 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rbac-poc"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "joao-parana", email = "joao.parana@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "pyright",
+  "black",
+  "ruff",
+  "psutil",
+  "tomli",
+  "uvicorn",
+  "fastapi",
+  "pydantic",
+  "SQLAlchemy",
+]
+
+[project.urls]
+Documentation = "https://github.com/joao-parana/rbac-poc#readme"
+Issues = "https://github.com/joao-parana/rbac-poc/issues"
+Source = "https://github.com/joao-parana/rbac-poc"
+
+[tool.hatch.version]
+path = "src/rbac_poc/__about__.py"
+
+[tool.pyright]
+exclude = ["**/__pycache__", ".pytest_cache/", ".tox/", ".venv/", "site/"]
+pythonVersion = "3.12"
+pythonPlatform = "All"
+typeCheckingMode = "strict"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.envs.default]
+python = "3.12"
+dependencies = [
+  "coverage[toml]>=6.5",
+  "pytest",
+]
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/rbac_poc tests}"
+
+[tool.coverage.run]
+source_pkgs = ["rbac_poc", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/rbac_poc/__about__.py",
+]
+
+[tool.coverage.paths]
+rbac_poc = ["src/rbac_poc", "*/rbac-poc/src/rbac_poc"]
+tests = ["tests", "*/rbac-poc/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
