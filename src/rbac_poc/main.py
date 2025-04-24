@@ -19,7 +19,6 @@ class RbacPoc():
         )
 
     def define_rest_api_endpoints(self):
-        _endpoint_methods: list[Callable] = {list_all_permissions,get_permissions, update_user, update_permissions, create_user, list_users, check_edit_permission, get_user}
         print("==== define_rest_api_endpoints", flush=True)
         # --- Endpoints de Permissões ---
         @self.app.get("/permissions/", response_model=List[GroupPermissions])
