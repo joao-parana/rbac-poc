@@ -1,6 +1,6 @@
 <!-- FILE: src/routes/+page.svelte -->
 <script lang="ts">
-	import { getUsers } from '$lib/api.js';
+	import { getUsers } from '$lib/api';
 	import type { User } from '$lib/models'; // Importe a interface
 
 	// Tipagem explícita do array

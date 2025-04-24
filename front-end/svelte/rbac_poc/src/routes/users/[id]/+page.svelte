@@ -1,8 +1,8 @@
 <!-- FILE: src/routes/users/[id]/+page.svelte -->
 
-<script>
-	import { getUsers, updateUser } from '$lib/api.js';
-	import { UserGroupEnum } from '$lib/models.js';
+<script lang="ts">
+	import { getUsers, updateUser } from '$lib/api';
+	import { UserGroupEnum } from '$lib/models';
 	import { onMount } from 'svelte';
 
 	export let data; // SvelteKit carrega props via `load`

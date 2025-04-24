@@ -12,7 +12,7 @@
 	// 	is_active: true
 	// };
 
-	import { createUser } from '$lib/api.js';
+	import { createUser } from '$lib/api';
 
 	// Código TypeScript de inicialização
 	// ==================================

@@ -1,7 +1,7 @@
 <!-- FILE: src/routes/permissions/+page.svelte -->
 <script>
-	import { getGroupPermissions, updatePermissions } from '$lib/api.js';
-	import { UserGroupEnum } from '$lib/models.js'; // Enum de grupos
+	import { getGroupPermissions, updatePermissions } from '$lib/api';
+	import { UserGroupEnum } from '$lib/models'; // Enum de grupos
 
 	let permissions = {};
 	let selectedGroup = Object.values(UserGroupEnum)[0]; // Primeiro grupo como padrão
