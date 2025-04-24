@@ -1,13 +1,21 @@
 <!-- FILE: src/routes/users/[id]/+page.svelte -->
-
 <script lang="ts">
-	import { getUsers, updateUser } from '$lib/api';
+	import { updateUser } from '$lib/api';
 	import { UserGroupEnum } from '$lib/models';
-	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+	import type { User } from '$lib/models';
+	// import { onMount } from 'svelte';
 
-	export let data; // SvelteKit carrega props via `load`
+	// Tipagem explícita para data
+	export let data: PageData; // SvelteKit carrega props via `load`
 
-	let user = data.user;
+	let user: User = data.user ?? {
+		id: 0,
+		username: '',
+		email: '',
+		groups: [],
+		is_active: false
+	};
 
 	async function handleSubmit() {
 		await updateUser(user.id, user);

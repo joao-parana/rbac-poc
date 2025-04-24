@@ -35,7 +35,8 @@ svelte/rbac_poc
 
 **Frontend:** Execute `cd rbac-poc/front-end/svelte/rbac_poc && npm run build` para gerar
 arquivos estáticos e servir via Nginx ou `python3 -m http.server`. Este comando também
-compila todo o projeto e aborta no primeiro erro encontrado.
+compila todo o projeto e aborta no primeiro erro encontrado. Entretanto é aconselhavel
+executar também `npm run check`
 
 Quando a gente executa `npm run build` em um projeto SvelteKit (que usa Vite como ferramenta
 de build), o Vite realiza várias otimizações para preparar seu aplicativo para produção.

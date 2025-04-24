@@ -12,6 +12,16 @@ export async function getUsers(): Promise<User[]> {
 	return await response.json();
 }
 
+export async function getUserById(userId: number): Promise<User> {
+	const response = await fetch(`${API_BASE_URL}/users/${userId}`);
+
+	if (!response.ok) {
+		throw new Error(`Failed to fetch user with ID ${userId}`);
+	}
+
+	return await response.json();
+}
+
 // Buscar permissões de um grupo
 export async function getGroupPermissions(groupName: UserGroupEnum): Promise<GroupPermissions> {
 	const response = await fetch(`${API_BASE_URL}/permissions/${groupName}`);

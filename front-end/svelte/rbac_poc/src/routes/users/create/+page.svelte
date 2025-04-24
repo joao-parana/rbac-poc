@@ -2,16 +2,6 @@
 <script lang="ts">
 	import type { User } from '$lib/models';
 	import { UserGroupEnum } from '$lib/models';
-
-	let user: User = null;
-	// let user: User = {
-	// 	id: 1,
-	// 	username: 'john_doe',
-	// 	email: 'john@example.com',
-	// 	groups: [UserGroupEnum.VEE_USER],
-	// 	is_active: true
-	// };
-
 	import { createUser } from '$lib/api';
 
 	// Código TypeScript de inicialização
@@ -23,12 +13,12 @@
 	//   is_active: true
 	// };
 
-	let newUser = {
+	let newUser: User = {
 		id: 0,
 		username: '',
 		email: '',
 		groups: [],
-		is_active: true
+		is_active: false
 	};
 
 	async function handleSubmit() {

@@ -1,9 +1,18 @@
 <!-- FILE: src/routes/permissions/+page.svelte -->
-<script>
+<script lang="ts">
 	import { getGroupPermissions, updatePermissions } from '$lib/api';
 	import { UserGroupEnum } from '$lib/models'; // Enum de grupos
+	import type { GroupPermissions } from '$lib/models';
 
-	let permissions = {};
+	// let permissions = {};
+	let permissions: GroupPermissions = {
+		group_name: UserGroupEnum.VEE_USER, // Valor inicial padrão
+		viewer: false,
+		contributor: false,
+		editor: false,
+		admin: false
+	};
+	// let selectedGroup: UserGroupEnum = UserGroupEnum.VEE_USER;
 	let selectedGroup = Object.values(UserGroupEnum)[0]; // Primeiro grupo como padrão
 
 	async function loadPermissions() {

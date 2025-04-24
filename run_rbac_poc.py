@@ -19,7 +19,7 @@ def main():
     rbac_poc = RbacPoc(rest_api)
     rbac_poc.define_rest_api_endpoints()
     thread_name = f"_run_uvicorn_thread-{len(threading.enumerate())}"
-    uvicorn_port = 8097
+    uvicorn_port = 8093
     t = threading.Thread(target=run_uvicorn, args=(uvicorn_port,), name=thread_name)
     t.start()
     print("Servidor uvicorn rodando em uma thread separada.", flush=True)
