@@ -18,6 +18,7 @@ class UserGroupEnum(str, Enum):
 
 # Modelo de Permissões (quais perfis um grupo tem)
 class GroupPermissions(BaseModel):
+    # TODO: adicionar id: int, scope:str, lot_id: str
     group_name: UserGroupEnum
     viewer: bool = False
     contributor: bool = False

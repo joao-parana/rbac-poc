@@ -19,7 +19,7 @@ class RbacPoc():
         )
 
     def define_rest_api_endpoints(self):
-        _endpoint_methods: list[Callable] = {list_all_permissions,get_permissions, update_user, update_permissions, create_user, list_users, check_edit_permission}
+        _endpoint_methods: list[Callable] = {list_all_permissions,get_permissions, update_user, update_permissions, create_user, list_users, check_edit_permission, get_user}
         print("==== define_rest_api_endpoints", flush=True)
         # --- Endpoints de Permissões ---
         @self.app.get("/permissions/", response_model=List[GroupPermissions])
@@ -37,6 +37,7 @@ class RbacPoc():
             # Lógica para atualizar o usuário no banco de dados
             # ...
             return {"message": "Usuário atualizado com sucesso"}
+
         @self.app.put("/permissions/{group_name}")
         def update_permissions(group_name: UserGroupEnum, request: UpdatePermissionsRequest):
             if group_name not in PERMISSIONS_DB:
@@ -57,6 +58,16 @@ class RbacPoc():
         @self.app.post("/users/", response_model=User)
         def create_user(user: User):
             USERS_DB.append(user)
+            return user
+
+        @self.app.get("/users/{user_id}")
+        async def get_user(user_id: int) -> User:
+            # Sua lógica para buscar o usuário no banco de dados
+            # Exemplo:
+            # user = db.query(User).filter(User.id == user_id).first()
+            user
+            if not user:
+                raise HTTPException(status_code=404, detail="User not found")
             return user
 
         @self.app.get("/users/", response_model=List[User])
