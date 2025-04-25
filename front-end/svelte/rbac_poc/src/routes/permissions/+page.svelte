@@ -25,6 +25,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>RBAC - Permissões do Grupo</title>
+</svelte:head>
+
 <select bind:value={selectedGroup} on:change={loadPermissions}>
 	{#each Object.values(UserGroupEnum) as group (group)}
 		<option value={group}>{group}</option>

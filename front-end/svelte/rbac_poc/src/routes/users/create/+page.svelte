@@ -22,10 +22,17 @@
 	};
 
 	async function handleSubmit() {
+		if (import.meta.env.DEV) {
+			console.log('newUser = ' + newUser);
+		}
 		await createUser(newUser);
 		window.location.href = '/'; // Redireciona após criação
 	}
 </script>
+
+<svelte:head>
+	<title>RBAC - Criação de Usuário</title>
+</svelte:head>
 
 <form on:submit|preventDefault={handleSubmit}>
 	<input type="text" bind:value={newUser.username} placeholder="Username" required />
@@ -41,3 +48,5 @@
 
 	<button type="submit">Criar Usuário</button>
 </form>
+
+<a href="/">Voltar para a página principal</a>
