@@ -25,7 +25,7 @@
         { name: 'Início', path: '/' },
         { name: 'Projetos', path: '/projetos' },
         { name: 'Fornecedores', path: '/fornecedores' },
-        { name: 'Documentos', path: '/documentos' }
+		{ name: 'Área Restrita', path: '/area-restrita' }
     ]);
 
     let isMenuOpen = $state(false);
@@ -102,10 +102,7 @@
     .top-menu {
         background: #ffffff;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
+        position: relative; /* Altere de fixed para relative */
         z-index: 1000;
         height: 60px;
     }

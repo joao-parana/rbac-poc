@@ -4,7 +4,7 @@ declare global {
     type TreeNode = {
         id: string
         name: string
-        type: 'root' | 'project' | 'lote' | 'lt' | 'se' | 'category'
+        type: 'root' | 'project' | 'lote' | 'lt' | 'se' | 'category' | 'user'
         children?: TreeNode[]
     };
 }

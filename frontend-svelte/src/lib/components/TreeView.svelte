@@ -5,13 +5,6 @@
         level?: number
     }>();
 
-    type TreeNode = {
-        id: string
-        name: string
-        type: 'root' | 'project' | 'lote' | 'lt' | 'se' | 'category'
-        children?: TreeNode[]
-    };
-
     let isOpen = $state(false);
     let indent = $derived.by(() => `${level * 16}px`);
 </script>
