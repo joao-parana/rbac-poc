@@ -72,6 +72,23 @@ drwxr-xr-x  11 joao  staff  352 Apr 23 20:11 server
 
 Nesta preparação para Deploy o Vite gerou **menos de 260KB para o servidor** e **menos de 150KB para o cliente**.
 
+## SvelteKit vs. Svelte
+
+O Svelte renderiza componentes de interface do usuário (UI). Você pode compor esses componentes e renderizar uma página inteira apenas com o Svelte, mas é preciso mais do que apenas o Svelte para criar um aplicativo completo.
+
+O **SvelteKit** ajuda você a criar aplicativos web seguindo as melhores práticas modernas e fornecendo soluções para desafios comuns de desenvolvimento. Ele oferece desde funcionalidades básicas — como um roteador que atualiza sua UI quando um link é clicado — até recursos mais avançados. Sua extensa lista de recursos inclui **otimizações de build** para carregar apenas o código mínimo necessário; suporte offline; pré-carregamento de páginas antes da navegação do usuário; renderização configurável para lidar com diferentes partes do seu aplicativo no servidor via SSR (Server-Side Rendering), no navegador por meio de renderização do lado do cliente ou em tempo de build com pré-renderização; otimização de imagens; etc. Construir um aplicativo com todas as melhores práticas modernas é extremamente complicado, mas o SvelteKit faz todo o trabalho chato para você, para que possa se dedicar à parte criativa.
+
+Ele reflete as alterações no seu código no navegador instantaneamente para fornecer uma experiência de desenvolvimento extremamente rápida e rica em recursos, aproveitando o Vite com um plugin Svelte para fazer a Substituição de Módulo a Quente (HMR - Hot Module Replacement).
+
+## Workflow de desenvolvimento com SvelteKit
+
+```bash
+npx sv create my-app
+cd my-app
+npm install
+npm run dev
+```
+
 ## TODO
 
 - Use as bibliotecas SvelteKit UI.

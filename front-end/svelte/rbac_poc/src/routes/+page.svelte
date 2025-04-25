@@ -6,6 +6,8 @@
 	// Tipagem explícita do array
 	let users: User[] = []; // Agora users é um array de objetos User
 
+	// let user: User | null = null;
+
 	async function loadUsers() {
 		users = await getUsers();
 	}
