@@ -1,6 +1,22 @@
 <script lang="ts">
     import { get } from 'svelte/store';
     import { page } from '$app/stores';
+
+    // Define the clickOutside action
+    function clickOutside(node: HTMLElement, callback: (event: MouseEvent) => void) {
+        const handleClick = (event: MouseEvent) => {
+            if (!node.contains(event.target as Node)) {
+                callback(event);
+            }
+        };
+
+        document.addEventListener('click', handleClick);
+        return {
+            destroy() {
+                document.removeEventListener('click', handleClick);
+            }
+        };
+    }
     let { user } = $props<{
         user?: { name: string; email: string }
     }>();
@@ -13,7 +29,7 @@
     ]);
 
     let isMenuOpen = $state(false);
-    let dropdownElement: HTMLElement;
+    let dropdownElement = $state<HTMLElement | null>(null);
 
     function handleClickOutside(event: MouseEvent) {
         if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
@@ -42,30 +58,43 @@
         </ul>
 
         <!-- Menu do Usuário -->
-        <div class="user-menu" on:click|stopPropagation={() => (isMenuOpen = !isMenuOpen)}>
-            <div class="user-avatar">
-                {(user?.name?.[0]?.toUpperCase() ?? 'U')}
-            </div>
-            
-            {#if isMenuOpen}
-                <div class="dropdown" bind:this={dropdownElement} use:clickOutside={handleClickOutside}>
-                    {#if user}
-                        <div class="user-info">
-                            <strong>{user.name}</strong>
-                            <small>{user.email}</small>
-                        </div>
-                        <hr>
-                        <a href="/perfil" class="dropdown-item">Meu Perfil</a>
-                        <a href="/configuracoes" class="dropdown-item">Configurações</a>
-                    {:else}
-                        <a href="/login" class="dropdown-item">Login</a>
-                        <a href="/registro" class="dropdown-item">Registrar</a>
-                    {/if}
-                    <hr>
-                    <a href="/sair" class="dropdown-item text-danger">Sair</a>
-                </div>
-            {/if}
-        </div>
+		<div
+		class="user-menu"
+		tabindex="0"
+		role="button"
+		aria-expanded={isMenuOpen}
+		aria-label="Abrir menu do usuário"
+        onclick={(event) => { event.stopPropagation(); isMenuOpen = !isMenuOpen; }}
+        onkeydown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                isMenuOpen = !isMenuOpen;
+            }
+        }}
+		>
+		<div class="user-avatar">
+			{(user?.name?.[0]?.toUpperCase() ?? 'U')}
+		</div>
+		</div>
+
+		{#if isMenuOpen}
+		<div class="dropdown" bind:this={dropdownElement} use:clickOutside={handleClickOutside}>
+			{#if user}
+				<div class="user-info">
+					<strong>{user.name}</strong>
+					<small>{user.email}</small>
+				</div>
+				<hr>
+				<a href="/perfil" class="dropdown-item">Meu Perfil</a>
+				<a href="/configuracoes" class="dropdown-item">Configurações</a>
+			{:else}
+				<a href="/login" class="dropdown-item">Login</a>
+				<a href="/registro" class="dropdown-item">Registrar</a>
+			{/if}
+			<hr>
+			<a href="/sair" class="dropdown-item text-danger">Sair</a>
+		</div>
+		{/if}
     </div>
 </nav>
 
@@ -98,10 +127,6 @@
         text-decoration: none;
         color: #2c3e50;
         font-weight: 600;
-        
-        svg {
-            color: #3498db;
-        }
     }
 
     .nav-links {

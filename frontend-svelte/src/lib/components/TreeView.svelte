@@ -1,4 +1,5 @@
 <script lang="ts">
+	import TreeView from './TreeView.svelte';
     let { node, level = 0 } = $props<{
         node: TreeNode
         level?: number
@@ -19,24 +20,36 @@
     <div
         class="node-content"
         style:padding-left={indent}
-        on:click={() => (node.children?.length ? (isOpen = !isOpen) : null)}
+		tabindex="0"
+		role="button"
+		aria-expanded={node.children?.length ? isOpen : undefined}
+		aria-label={node.name}
+        onclick={(event) => (node.children?.length ? (isOpen = !isOpen) : null)}
+        onkeydown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                if (node.children?.length) {
+                    isOpen = !isOpen;
+                }
+            }
+        }}
     >
         {#if node.children?.length}
             <span class:open={isOpen} class="caret">▶</span>
         {:else}
-            <span class="spacer" />
+            <span class="spacer"></span>
         {/if}
-        
+
         <span class="name">{node.name}</span>
     </div>
 
-    {#if node.children?.length && isOpen}
-        <ul class="children">
-            {#each node.children as child (child.id)}
-                <svelte:self node={child} level={level + 1} />
-            {/each}
-        </ul>
-    {/if}
+	{#if node.children?.length && isOpen}
+		<ul class="children">
+			{#each node.children as child (child.id)}
+                <TreeView node={child} level={level + 1} />
+			{/each}
+		</ul>
+	{/if}
 </li>
 
 <style>

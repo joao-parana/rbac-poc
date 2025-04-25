@@ -59,12 +59,6 @@
 </div>
 
 <style>
-    .layout {
-        display: grid;
-        grid-template-columns: 300px 1fr;
-        min-height: 100vh;
-    }
-
     .sidebar {
         background: #fff;
         border-right: 1px solid #e0e0e0;

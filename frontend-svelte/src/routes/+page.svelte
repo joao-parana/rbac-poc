@@ -3,7 +3,6 @@
 </script>
 
 <div class="container">
-       
     <main class="content">
         <h1>Bem vindo ao sistema ProCAPEX!</h1>
         <!-- Formulário será adicionado aqui -->
@@ -11,7 +10,7 @@
 </div>
 
 <style>
-    .layout {
+    /*.layout {
         display: grid;
         grid-template-columns: 300px 1fr;
         min-height: 100vh;
@@ -27,7 +26,7 @@
     .tree-root {
         padding: 0;
         margin: 0;
-    }
+    }*/
 
     .content {
         padding: auto;
