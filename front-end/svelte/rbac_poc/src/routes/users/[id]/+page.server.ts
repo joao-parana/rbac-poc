@@ -3,6 +3,7 @@
 import type { PageServerLoad } from './$types';
 import { getUserById } from '$lib/api';
 import { error } from '@sveltejs/kit';
+import { logger } from '$lib/logger';
 
 export const load: PageServerLoad = async ({ params }) => {
 	// Converte para número e valida
@@ -16,6 +17,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		const user = await getUserById(userId);
 		return { user };
 	} catch (err) {
+		logger.error(err);
 		throw error(404, 'Usuário não encontrado. Error: ' + err); // Retorna status 404
 	}
 };

@@ -23,6 +23,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>RBAC - Atualização de Usuário</title>
+</svelte:head>
+
 <form on:submit|preventDefault={handleSubmit}>
 	<input type="text" bind:value={user.username} placeholder="Username" />
 	<input type="email" bind:value={user.email} placeholder="Email" />
