@@ -89,6 +89,24 @@ npm install
 npm run dev
 ```
 
+## Logging no Terminal do Servidor SvelteKit (Node.js Runtime)
+
+Quando você executa `vite dev --open` com SvelteKit, existem várias formas de escrever logs no terminal do servidor (Node.js runtime) a partir do seu código TypeScript:
+
+- `console.log` em componentes Svelte (+page.svelte) → vai para o console do navegador
+- `console.log` em arquivos `+page.ts` → também vai para o console do navegador
+
+### Visualizando os Logs
+
+1. Execute o servidor:
+
+```bash
+npm run dev
+```
+
+2. Os logs aparecerão no terminal onde você executou o comando
+3. Faça requisições à sua aplicação para ver os logs sendo gerados
+
 ## TODO
 
 - Use as bibliotecas SvelteKit UI.
