@@ -1,0 +1,266 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "FastAPI", "version": "0.1.0" },
+  "paths": {
+    "/permissions/": {
+      "get": {
+        "summary": "List All Permissions",
+        "operationId": "list_all_permissions_permissions__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/GroupPermissions" },
+                  "type": "array",
+                  "title": "Response List All Permissions Permissions  Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/permissions/{group_name}": {
+      "get": {
+        "summary": "Get Permissions",
+        "operationId": "get_permissions_permissions__group_name__get",
+        "parameters": [
+          {
+            "name": "group_name",
+            "in": "path",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/UserGroupEnum" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/GroupPermissions" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Permissions",
+        "operationId": "update_permissions_permissions__group_name__put",
+        "parameters": [
+          {
+            "name": "group_name",
+            "in": "path",
+            "required": true,
+            "schema": { "$ref": "#/components/schemas/UserGroupEnum" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePermissionsRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "summary": "List Users",
+        "operationId": "list_users_users__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": { "$ref": "#/components/schemas/User" },
+                  "type": "array",
+                  "title": "Response List Users Users  Get"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create User",
+        "operationId": "create_user_users__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{user_id}/can-edit": {
+      "get": {
+        "summary": "Check Edit Permission",
+        "operationId": "check_edit_permission_users__user_id__can_edit_get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "title": "User Id" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": { "application/json": { "schema": {} } }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/HTTPValidationError" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GroupPermissions": {
+        "properties": {
+          "group_name": { "$ref": "#/components/schemas/UserGroupEnum" },
+          "viewer": { "type": "boolean", "title": "Viewer", "default": false },
+          "contributor": {
+            "type": "boolean",
+            "title": "Contributor",
+            "default": false
+          },
+          "editor": { "type": "boolean", "title": "Editor", "default": false },
+          "admin": { "type": "boolean", "title": "Admin", "default": false }
+        },
+        "type": "object",
+        "required": ["group_name"],
+        "title": "GroupPermissions"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": { "$ref": "#/components/schemas/ValidationError" },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "UpdatePermissionsRequest": {
+        "properties": {
+          "group_name": { "$ref": "#/components/schemas/UserGroupEnum" },
+          "viewer": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Viewer"
+          },
+          "contributor": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Contributor"
+          },
+          "editor": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Editor"
+          },
+          "admin": {
+            "anyOf": [{ "type": "boolean" }, { "type": "null" }],
+            "title": "Admin"
+          }
+        },
+        "type": "object",
+        "required": ["group_name"],
+        "title": "UpdatePermissionsRequest"
+      },
+      "User": {
+        "properties": {
+          "id": { "type": "integer", "title": "Id" },
+          "username": { "type": "string", "title": "Username" },
+          "email": { "type": "string", "title": "Email" },
+          "groups": {
+            "items": { "$ref": "#/components/schemas/UserGroupEnum" },
+            "type": "array",
+            "title": "Groups"
+          },
+          "is_active": {
+            "type": "boolean",
+            "title": "Is Active",
+            "default": true
+          }
+        },
+        "type": "object",
+        "required": ["id", "username", "email", "groups"],
+        "title": "User"
+      },
+      "UserGroupEnum": {
+        "type": "string",
+        "enum": ["VEEuser", "VEDuser", "VSSuser", "supplier", "admin"],
+        "title": "UserGroupEnum"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": { "anyOf": [{ "type": "string" }, { "type": "integer" }] },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": { "type": "string", "title": "Message" },
+          "type": { "type": "string", "title": "Error Type" }
+        },
+        "type": "object",
+        "required": ["loc", "msg", "type"],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
